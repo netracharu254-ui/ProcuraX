@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./CustomerCart.css";
 
-const API = "http://localhost:5000/api";
+const API = "http://https://procurax-o4mh.onrender.com/api";
 
 function CustomerCart({ user, onNavigate }) {
   const [cart, setCart] = useState([]);

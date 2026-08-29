@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const API = "http://localhost:5000/api";
+const API = "http://https://procurax-o4mh.onrender.com/api";
 
 function Register() {
   const [formData, setFormData] = useState({

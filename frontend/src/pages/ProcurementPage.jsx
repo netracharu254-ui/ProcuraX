@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./ProcurementPage.css";
 
-const API = "http://localhost:5000/api";
+const API = "http://https://procurax-o4mh.onrender.com/api";
 
 const PO_STATUSES = [
   "DRAFT",
