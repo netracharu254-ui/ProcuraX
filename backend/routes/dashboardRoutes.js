@@ -1,5 +1,5 @@
 const express = require("express");
-const Vendor = require("../models/Vendor");
+const Vendor = require("../models/vendor");
 const PurchaseOrder = require("../models/PurchaseOrder");
 
 const router = express.Router();
