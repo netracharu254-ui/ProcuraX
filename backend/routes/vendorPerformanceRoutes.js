@@ -1,6 +1,6 @@
 const express = require("express");
-const VendorPerformance = require("../models/VendorPerformance");
-const Vendor = require("../models/Vendor");
+const VendorPerformance = require("../models/vendorPerformance");
+const Vendor = require("../models/vendor");
 
 const router = express.Router();
 
