@@ -5,6 +5,24 @@ const router = express.Router();
 const User = require("../models/User");
 
 // =====================================================
+// CHECK USER ROLE ENUM
+// =====================================================
+
+console.log(
+  "USER ROLE ENUM:",
+  User.schema.path("role").enumValues
+);
+
+// Allowed roles
+const ALLOWED_ROLES = [
+  "ADMIN",
+  "MANAGER",
+  "PROCUREMENT",
+  "VENDOR",
+  "CUSTOMER",
+];
+
+// =====================================================
 // LOGIN
 // POST /api/auth/login
 // =====================================================
@@ -35,7 +53,7 @@ router.post("/login", async (req, res) => {
       });
     }
 
-    // Compare entered password with hashed password
+    // Compare password
     const passwordMatch = await bcrypt.compare(
       password,
       user.password
@@ -84,7 +102,10 @@ router.post("/register", async (req, res) => {
       role,
     } = req.body;
 
+    // -----------------------------------------------
     // Check required fields
+    // -----------------------------------------------
+
     if (!name || !email || !password) {
       return res.status(400).json({
         message:
@@ -92,7 +113,10 @@ router.post("/register", async (req, res) => {
       });
     }
 
-    // Password length validation
+    // -----------------------------------------------
+    // Password validation
+    // -----------------------------------------------
+
     if (password.length < 6) {
       return res.status(400).json({
         message:
@@ -100,10 +124,36 @@ router.post("/register", async (req, res) => {
       });
     }
 
-    // Clean email
+    // -----------------------------------------------
+    // Clean input
+    // -----------------------------------------------
+
+    const cleanName = name.trim();
     const cleanEmail = email.toLowerCase().trim();
 
-    // Check if user already exists
+    // -----------------------------------------------
+    // Set role
+    // -----------------------------------------------
+
+    const selectedRole = role
+      ? role.toUpperCase().trim()
+      : "ADMIN";
+
+    // -----------------------------------------------
+    // Check role
+    // -----------------------------------------------
+
+    if (!ALLOWED_ROLES.includes(selectedRole)) {
+      return res.status(400).json({
+        message:
+          "Invalid role. Allowed roles: ADMIN, MANAGER, PROCUREMENT, VENDOR, CUSTOMER",
+      });
+    }
+
+    // -----------------------------------------------
+    // Check existing user
+    // -----------------------------------------------
+
     const existingUser = await User.findOne({
       email: cleanEmail,
     });
@@ -114,21 +164,30 @@ router.post("/register", async (req, res) => {
       });
     }
 
+    // -----------------------------------------------
     // Hash password
+    // -----------------------------------------------
+
     const hashedPassword = await bcrypt.hash(
       password,
       10
     );
 
+    // -----------------------------------------------
     // Create user
+    // -----------------------------------------------
+
     const user = await User.create({
-      name: name.trim(),
+      name: cleanName,
       email: cleanEmail,
       password: hashedPassword,
-      role: role || "ADMIN",
+      role: selectedRole,
     });
 
-    // Response
+    // -----------------------------------------------
+    // Success response
+    // -----------------------------------------------
+
     return res.status(201).json({
       message: "User created successfully",
 
@@ -155,7 +214,7 @@ router.post("/register", async (req, res) => {
 // =====================================================
 
 router.get("/test", (req, res) => {
-  res.status(200).json({
+  return res.status(200).json({
     message: "Auth routes are working!",
   });
 });

@@ -3,8 +3,7 @@ import { useState } from "react";
 const API = "http://localhost:5000/api";
 
 function Login({ onLogin }) {
-  const [isRegister, setIsRegister] =
-    useState(false);
+  const [isRegister, setIsRegister] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -13,15 +12,11 @@ function Login({ onLogin }) {
     role: "ADMIN",
   });
 
-  const [message, setMessage] =
-    useState("");
-
-  const [loading, setLoading] =
-    useState(false);
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value } =
-      e.target;
+    const { name, value } = e.target;
 
     setFormData((previous) => ({
       ...previous,
@@ -52,33 +47,27 @@ function Login({ onLogin }) {
             password: formData.password,
           };
 
-      const response = await fetch(
-        endpoint,
-        {
-          method: "POST",
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
 
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
-
-          body: JSON.stringify(body),
-        }
-      );
-
-      const data =
-        await response.json();
+      const data = await response.json();
 
       if (!response.ok) {
         setMessage(
-          data.message ||
-            "Something went wrong"
+          data.message || "Something went wrong"
         );
-
         return;
       }
 
-      // REGISTER
+      // =========================
+      // REGISTER SUCCESS
+      // =========================
+
       if (isRegister) {
         setMessage(
           "✅ Account created successfully! Please login."
@@ -96,7 +85,10 @@ function Login({ onLogin }) {
         return;
       }
 
-      // LOGIN
+      // =========================
+      // LOGIN SUCCESS
+      // =========================
+
       localStorage.setItem(
         "vmsToken",
         data.token
@@ -104,24 +96,16 @@ function Login({ onLogin }) {
 
       localStorage.setItem(
         "vmsUser",
-        JSON.stringify(
-          data.user
-        )
+        JSON.stringify(data.user)
       );
 
-      setMessage(
-        "✅ Login successful!"
-      );
+      setMessage("✅ Login successful!");
 
       if (onLogin) {
         onLogin(data.user);
       }
-
     } catch (error) {
-      console.error(
-        "Auth error:",
-        error
-      );
+      console.error("Auth error:", error);
 
       setMessage(
         "❌ Cannot connect to backend"
@@ -133,21 +117,16 @@ function Login({ onLogin }) {
 
   return (
     <div className="login-page">
-
       <div className="login-card">
 
         {/* HEADER */}
 
         <div className="login-header">
-
-          <h1>
-            🏢 VMS
-          </h1>
+          <h1>🏢 VMS</h1>
 
           <p>
             Vendor Management System
           </p>
-
         </div>
 
         {/* TITLE */}
@@ -160,91 +139,86 @@ function Login({ onLogin }) {
 
         {/* FORM */}
 
-        <form
-          onSubmit={
-            handleSubmit
-          }
-        >
+        <form onSubmit={handleSubmit}>
+
+          {/* NAME */}
 
           {isRegister && (
             <input
               type="text"
               name="name"
               placeholder="Enter Name"
-              value={
-                formData.name
-              }
-              onChange={
-                handleChange
-              }
+              value={formData.name}
+              onChange={handleChange}
               required
             />
           )}
+
+          {/* EMAIL */}
 
           <input
             type="email"
             name="email"
             placeholder="Enter Email"
-            value={
-              formData.email
-            }
-            onChange={
-              handleChange
-            }
+            value={formData.email}
+            onChange={handleChange}
             required
           />
+
+          {/* PASSWORD */}
 
           <input
             type="password"
             name="password"
             placeholder="Enter Password"
-            value={
-              formData.password
-            }
-            onChange={
-              handleChange
-            }
+            value={formData.password}
+            onChange={handleChange}
             required
           />
+
+          {/* ROLE */}
 
           {isRegister && (
             <select
               name="role"
-              value={
-                formData.role
-              }
-              onChange={
-                handleChange
-              }
+              value={formData.role}
+              onChange={handleChange}
+              required
             >
-
               <option value="ADMIN">
                 Admin
               </option>
 
+              <option value="MANAGER">
+                Manager
+              </option>
+
               <option value="PROCUREMENT">
-                Procurement
+                Procurement Officer
               </option>
 
               <option value="VENDOR">
                 Vendor
               </option>
 
+              <option value="CUSTOMER">
+                Customer
+              </option>
             </select>
           )}
+
+          {/* BUTTON */}
 
           <button
             type="submit"
             className="login-btn"
             disabled={loading}
           >
-
             {loading
               ? "Please wait..."
               : isRegister
               ? "📝 Create Account"
               : "🔑 Login"}
-
           </button>
 
         </form>
@@ -257,7 +231,7 @@ function Login({ onLogin }) {
           </p>
         )}
 
-        {/* REGISTER / LOGIN SWITCH */}
+        {/* SWITCH */}
 
         <div
           style={{
@@ -268,64 +242,49 @@ function Login({ onLogin }) {
 
           {isRegister ? (
             <p>
-
               Already have an account?{" "}
 
               <button
                 type="button"
                 onClick={() => {
-                  setIsRegister(
-                    false
-                  );
-
+                  setIsRegister(false);
                   setMessage("");
                 }}
                 style={{
                   border: "none",
-                  background:
-                    "transparent",
+                  background: "transparent",
                   cursor: "pointer",
-                  fontWeight:
-                    "bold",
+                  fontWeight: "bold",
                 }}
               >
                 Login
               </button>
-
             </p>
           ) : (
             <p>
-
               New user?{" "}
 
               <button
                 type="button"
                 onClick={() => {
-                  setIsRegister(
-                    true
-                  );
-
+                  setIsRegister(true);
                   setMessage("");
                 }}
                 style={{
                   border: "none",
-                  background:
-                    "transparent",
+                  background: "transparent",
                   cursor: "pointer",
-                  fontWeight:
-                    "bold",
+                  fontWeight: "bold",
                 }}
               >
                 Create an account
               </button>
-
             </p>
           )}
 
         </div>
 
       </div>
-
     </div>
   );
 }
