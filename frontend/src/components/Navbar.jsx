@@ -5,21 +5,39 @@ function Navbar({ user, onLogout }) {
   return (
     <nav className="procura-navbar">
 
-      {/* LOGO + NAME */}
+      {/* BRAND */}
       <div className="procura-brand">
-        <img
-          src="/procuraX-logo.png"
-          alt="ProcuraX Logo"
-          className="procura-logo"
-        />
-
         <span className="procura-brand-name">
           ProcuraX
         </span>
       </div>
 
+      {/* NAVIGATION */}
+      <div className="procura-nav-links">
 
-      {/* USER + LOGOUT */}
+        <a href="/dashboard" className="procura-nav-link">
+          <span>⌂</span>
+          Dashboard
+        </a>
+
+        <a href="/vendors" className="procura-nav-link">
+          <span>🏢</span>
+          Vendors
+        </a>
+
+        <a href="/procurement" className="procura-nav-link">
+          <span>📦</span>
+          Procurement
+        </a>
+
+        <a href="/purchase-orders" className="procura-nav-link">
+          <span>📋</span>
+          Purchase Orders
+        </a>
+
+      </div>
+
+      {/* USER SECTION */}
       <div className="procura-user-section">
 
         <div className="procura-user-info">
@@ -31,20 +49,20 @@ function Navbar({ user, onLogout }) {
           </div>
 
           <div className="procura-user-details">
+
             <strong>
               {user?.name || user?.email || "User"}
             </strong>
 
             <span>
-              {user?.role || "User"}
+              {user?.role || "Procurement Officer"}
             </span>
+
           </div>
 
         </div>
 
-
         <button
-          type="button"
           className="procura-logout-btn"
           onClick={onLogout}
         >

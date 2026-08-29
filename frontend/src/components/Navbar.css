@@ -3,56 +3,107 @@
 }
 
 .procura-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
   width: 100%;
-  height: 72px;
+  min-height: 72px;
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
 
   padding: 0 28px;
 
   background: #ffffff;
+  border-bottom: 1px solid #e7ebef;
 
-  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 3px 15px rgba(15, 23, 42, 0.045);
 
-  box-shadow: 0 3px 15px rgba(15, 23, 42, 0.05);
-
-  font-family: Arial, sans-serif;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
 }
-
 
 /* =========================
    BRAND
 ========================= */
 
 .procura-brand {
-  height: 72px;
-
   display: flex;
   align-items: center;
 
-  overflow: hidden;
+  min-width: 210px;
 }
 
-.procura-logo {
-  width: 150px;
-  height: 65px;
+.procura-brand-name {
+  color: #0f766e;
 
-  object-fit: contain;
-  object-position: left center;
+  font-size: 21px;
+  font-weight: 850;
 
-  display: block;
+  letter-spacing: -0.5px;
+
+  white-space: nowrap;
 }
-
 
 /* =========================
-   USER
+   NAVIGATION
+========================= */
+
+.procura-nav-links {
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+}
+
+.procura-nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  padding: 10px 13px;
+
+  border-radius: 8px;
+
+  color: #667085;
+
+  text-decoration: none;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  transition: all 0.2s ease;
+}
+
+.procura-nav-link span {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.procura-nav-link:hover {
+  color: #0f766e;
+  background: #f0fdfa;
+
+  transform: translateY(-1px);
+}
+
+/* =========================
+   USER SECTION
 ========================= */
 
 .procura-user-section {
+  min-width: 260px;
+
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 
   gap: 16px;
 }
@@ -65,8 +116,8 @@
 }
 
 .procura-user-avatar {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
 
   display: flex;
   align-items: center;
@@ -87,10 +138,17 @@
 }
 
 .procura-user-details strong {
+  max-width: 130px;
+
+  overflow: hidden;
+
   color: #273244;
 
   font-size: 12px;
   font-weight: 800;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .procura-user-details span {
@@ -100,15 +158,18 @@
 
   font-size: 10px;
   font-weight: 600;
+
+  white-space: nowrap;
 }
 
-
 /* =========================
-   LOGOUT
+   LOGOUT BUTTON
 ========================= */
 
 .procura-logout-btn {
-  padding: 8px 14px;
+  flex-shrink: 0;
+
+  padding: 8px 13px;
 
   border: 1px solid #bce9e3;
   border-radius: 8px;
@@ -116,34 +177,168 @@
   background: #f0fdfa;
   color: #0f766e;
 
+  font-family: inherit;
+
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 750;
 
   cursor: pointer;
+
+  transition: all 0.2s ease;
 }
 
 .procura-logout-btn:hover {
+  border-color: #8bd9d0;
+
   background: #e6fffb;
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 4px 12px rgba(15, 118, 110, 0.12);
 }
 
+.procura-logout-btn:active {
+  transform: translateY(0);
+}
 
 /* =========================
-   MOBILE
+   TABLET
 ========================= */
 
-@media (max-width: 700px) {
+@media (max-width: 1100px) {
 
   .procura-navbar {
-    padding: 0 15px;
+    padding: 0 20px;
   }
 
-  .procura-logo {
-    width: 125px;
-    height: 58px;
+  .procura-brand {
+    min-width: 170px;
+  }
+
+  .procura-brand-name {
+    font-size: 19px;
+  }
+
+  .procura-nav-link {
+    padding: 9px 10px;
+    font-size: 11px;
+  }
+
+  .procura-user-section {
+    min-width: 200px;
+    gap: 10px;
   }
 
   .procura-user-details {
     display: none;
   }
+}
 
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 750px) {
+
+  .procura-navbar {
+    min-height: auto;
+
+    flex-wrap: wrap;
+
+    padding: 12px 15px;
+
+    gap: 10px;
+  }
+
+  .procura-brand {
+    min-width: auto;
+  }
+
+  .procura-brand-name {
+    font-size: 18px;
+  }
+
+  .procura-user-section {
+    margin-left: auto;
+
+    min-width: auto;
+  }
+
+  .procura-nav-links {
+    order: 3;
+
+    width: 100%;
+
+    justify-content: flex-start;
+
+    overflow-x: auto;
+
+    padding-bottom: 3px;
+
+    scrollbar-width: none;
+  }
+
+  .procura-nav-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .procura-nav-link {
+    flex-shrink: 0;
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 450px) {
+
+  .procura-navbar {
+    padding: 10px 12px;
+  }
+
+  .procura-brand-name {
+    font-size: 17px;
+  }
+
+  .procura-user-avatar {
+    width: 31px;
+    height: 31px;
+  }
+
+  .procura-logout-btn {
+    padding: 7px 10px;
+    font-size: 10px;
+  }
+
+  .procura-nav-link {
+    padding: 8px 10px;
+    font-size: 10px;
+  }
+}
+
+/* =========================
+   ACCESSIBILITY
+========================= */
+
+.procura-nav-link:focus-visible,
+.procura-logout-btn:focus-visible {
+  outline: 2px solid #14b8a6;
+  outline-offset: 2px;
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
