@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 const API = "https://procurax-o4mh.onrender.com/api";
+
 function Login({ onLogin }) {
   const [isRegister, setIsRegister] = useState(false);
 
@@ -57,9 +58,7 @@ function Login({ onLogin }) {
       const data = await response.json();
 
       if (!response.ok) {
-        setMessage(
-          data.message || "Something went wrong"
-        );
+        setMessage(data.message || "Something went wrong");
         return;
       }
 
@@ -254,6 +253,9 @@ function Login({ onLogin }) {
                   background: "transparent",
                   cursor: "pointer",
                   fontWeight: "bold",
+                  color: "#2563eb",
+                  fontSize: "16px",
+                  padding: "0",
                 }}
               >
                 Login
@@ -274,6 +276,9 @@ function Login({ onLogin }) {
                   background: "transparent",
                   cursor: "pointer",
                   fontWeight: "bold",
+                  color: "#2563eb",
+                  fontSize: "16px",
+                  padding: "0",
                 }}
               >
                 Create an account
