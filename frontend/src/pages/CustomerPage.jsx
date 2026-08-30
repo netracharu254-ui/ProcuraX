@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import "./CustomerPage.css";
 
-const API = "http://https://procurax-o4mh.onrender.com/api";
+const API = "https://procurax-o4mh.onrender.com/api";
 const SERVER_URL = "http://https://procurax-o4mh.onrender.com";
 
 function CustomerPage({ user, onLogout }) {

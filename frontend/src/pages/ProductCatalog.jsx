@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./CustomerPage.css";
 
-const API = "http://https://procurax-o4mh.onrender.com/api";
+const API = "https://procurax-o4mh.onrender.com/api";
 
 function ProductCatalog({ user, onNavigate }) {
   const [products, setProducts] = useState([]);

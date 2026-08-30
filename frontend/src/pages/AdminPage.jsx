@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import "./AdminPage.css";
 
-const API = "http://localhost:5000/api";
+const API = "https://procurax-o4mh.onrender.com/api";
 
 const PO_FILTERS = [
   "ALL",

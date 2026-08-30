@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import "./VendorPage.css";
 
-const API = "http://https://procurax-o4mh.onrender.com/api";
+const API = "https://procurax-o4mh.onrender.com/api";
 
 // =====================================================
 // STATUS HELPERS
