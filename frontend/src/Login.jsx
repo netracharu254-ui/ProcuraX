@@ -1,7 +1,6 @@
 import { useState } from "react";
 
-const API = "http://https://procurax-o4mh.onrender.com/api";
-
+const API = "https://procurax-o4mh.onrender.com"
 function Login({ onLogin }) {
   const [isRegister, setIsRegister] = useState(false);
 
