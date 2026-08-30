@@ -16,24 +16,27 @@ dotenv.config();
 const app = express();
 
 // =====================================================
-// MIDDLEWARE
+// MIDDLEWARE - CORS
 // =====================================================
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "https://procura-x-rho.vercel.app"
+    ],
     methods: [
       "GET",
       "POST",
       "PUT",
       "DELETE",
       "PATCH",
-      "OPTIONS",
+      "OPTIONS"
     ],
     allowedHeaders: [
       "Content-Type",
-      "Authorization",
-    ],
+      "Authorization"
+    ]
   })
 );
 
@@ -80,37 +83,31 @@ const dashboardRoutes =
 // API ROUTES
 // =====================================================
 
-// AUTH
 app.use(
   "/api/auth",
   authRoutes
 );
 
-// VENDORS
 app.use(
   "/api/vendors",
   vendorRoutes
 );
 
-// PRODUCTS
 app.use(
   "/api/products",
   productRoutes
 );
 
-// PURCHASE ORDERS
 app.use(
   "/api/purchase-orders",
   purchaseOrderRoutes
 );
 
-// VENDOR PERFORMANCE
 app.use(
   "/api/vendor-performance",
   vendorPerformanceRoutes
 );
 
-// DASHBOARD
 app.use(
   "/api/dashboard",
   dashboardRoutes
@@ -123,7 +120,7 @@ app.use(
 app.get("/", (req, res) => {
   res.status(200).json({
     message: "VMS Backend is running!",
-    status: "success",
+    status: "success"
   });
 });
 
@@ -134,7 +131,7 @@ app.get("/", (req, res) => {
 app.get("/api/health", (req, res) => {
   res.status(200).json({
     message: "Backend is healthy",
-    status: "OK",
+    status: "OK"
   });
 });
 
@@ -145,7 +142,7 @@ app.get("/api/health", (req, res) => {
 app.use((req, res) => {
   res.status(404).json({
     message: "Route not found",
-    path: req.originalUrl,
+    path: req.originalUrl
   });
 });
 
@@ -158,7 +155,7 @@ app.use((err, req, res, next) => {
 
   res.status(500).json({
     message: "Internal server error",
-    error: err.message,
+    error: err.message
   });
 });
 
@@ -173,9 +170,9 @@ mongoose
       "✅ MongoDB connected successfully!"
     );
 
-    app.listen(PORT, () => {
+    app.listen(PORT, "0.0.0.0", () => {
       console.log(
-        `🚀 Server running on http://localhost:${PORT}`
+        `🚀 Server running on port ${PORT}`
       );
     });
   })
@@ -185,4 +182,3 @@ mongoose
       error.message
     );
   });
-  
